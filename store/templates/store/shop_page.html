@@ -3,24 +3,12 @@
 {% load wagtailcore_tags %}
 {% block content %}
 
-<div class="relative bg-local bg-cover bg-center h-screen"
-  style="background-image: url(media/original_images/hero.jpg)">
+<div class="relative bg-local bg-cover bg-center h-screen">
 
   <div
     class="justify-center max-w-2xl mx-auto py-8 px-4 sm:py-8 sm:px-6 lg:px-8">
     
     
-    <div class="inset-x-0 text-center font-normal tracking-tight text-white pb-8">
-        <h1 class="text-5xl pt-6 pb-4">{{ page.header|richtext }}</h1>
-        <p class="font-medium">{{ page.body|richtext }}</p>
-    </div>
-    <div class="text-center">
-      <a href="/shop">
-        <button class="bg-white hover:bg-gray-200 text-black font-bold py-2 px-4 rounded">
-          Shop Now
-        </button>
-      </a>
-    </div>
     <div
       class="justify-items-center mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
       {% for product in products %}
