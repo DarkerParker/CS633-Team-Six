@@ -23,7 +23,7 @@ class HomePage(Page):
         context = super().get_context(request)
         
 
-        context['products'] = Product.objects.live()
+        context['products'] = Product.objects.filter(featured=True).live()
 
         return context
 

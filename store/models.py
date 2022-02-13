@@ -44,6 +44,7 @@ class Product(Page):
     sku = models.CharField(max_length=255)
     short_description = models.TextField(blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10)
+    featured = models.BooleanField(default=False)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -56,6 +57,7 @@ class Product(Page):
         FieldPanel('sku'),
         FieldPanel('price'),
         ImageChooserPanel('image'),
+        FieldPanel('featured'),
         FieldPanel('short_description'),
         InlinePanel('custom_fields', label='Custom fields'),
     ]
