@@ -23,12 +23,9 @@ class ShopPage(Page):
         context = super().get_context(request)
         products = Product.objects.live()
         for product in products:
-            # if product.image:
-            #     etsy_images = [request.get_host() + "/static/" + product.image]
-            # else:
             etsy_images = []
             if product.etsy_images:
-                product.etsy_images = product.etsy_images.replace("fullxfull", "200x200")
+                product.etsy_images = product.etsy_images.replace("fullxfull", "300x300")
                 etsy_images += product.etsy_images.split("|")
                 product.etsy_imgs = etsy_images
         context['products'] = products

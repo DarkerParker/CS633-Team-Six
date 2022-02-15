@@ -54,3 +54,41 @@ def upload_file(request):
 @login_required(login_url='/django-admin')
 def success(request):
     return render(request, 'search/success.html')
+
+def search(request):
+    search_query = request.GET.get('query', None)
+    page = request.GET.get('page', 1)
+
+    # Search
+    if search_query:
+        search_results = Product.objects.live().search(search_query)
+        query = Query.get(search_query)
+        # Record hit
+        query.add_hit()
+    else:
+        search_results = Product.objects.all()
+
+    for product in search_results:
+        # if product.image:
+        #     etsy_images = [request.get_host() + "/static/" + product.image]
+        # else:
+        etsy_images = []
+        if product.etsy_images:
+            product.etsy_images = product.etsy_images.replace("fullxfull", "300x300")
+            etsy_images += product.etsy_images.split("|")
+            product.etsy_imgs = etsy_images
+
+    print(search_results)
+    # Pagination
+    paginator = Paginator(search_results, 20)
+    try:
+        search_results = paginator.page(page)
+    except PageNotAnInteger:
+        search_results = paginator.page(1)
+    except EmptyPage:
+        search_results = paginator.page(paginator.num_pages)
+
+    return TemplateResponse(request, 'search/search.html', {
+        'search_query': search_query,
+        'search_results': search_results,
+    })

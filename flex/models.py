@@ -3,7 +3,7 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.core.models import Page
-
+from wagtail.core.fields import RichTextField
 
 class FlexPage(Page):
     """Flexibile page class."""
@@ -13,10 +13,14 @@ class FlexPage(Page):
     # @todo add streamfields 
     # content = StreamField()
 
-    subtitle = models.CharField(max_length=100, null=True, blank=True)
+    first_paragraph = RichTextField(blank=True)
+    second_paragraph = RichTextField(blank=True)
+    third_paragraph = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel("subtitle"),
+        FieldPanel("first_paragraph"),
+        FieldPanel("second_paragraph"),
+        FieldPanel("third_paragraph"),
     ]
 
     class Meta:  # noqa 

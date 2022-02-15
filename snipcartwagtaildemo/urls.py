@@ -13,8 +13,8 @@ urlpatterns = [
 
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
-
-    path('uploadinventory/', search_views.upload_file, name='search'),
+    path('search/', search_views.search, name='search'),
+    path('uploadinventory/', search_views.upload_file, name='uploadinv'),
     path('etsyuploadsuccess/', search_views.success, name='success')
 
 ]
