@@ -15,23 +15,23 @@
     transform: scale(1.02);
 }
 
-.carousel-open:checked + .carousel-item {
+.carousel1-open:checked + .carousel1-item {
     position: static;
     opacity: 100;
 }
 
-.carousel-item {
+.carousel1-item {
     -webkit-transition: opacity 0.6s ease-out;
     transition: opacity 0.6s ease-out;
 }
 
-#carousel-1:checked ~ .control-1,
-#carousel-2:checked ~ .control-2,
-#carousel-3:checked ~ .control-3 {
+#carousel1-1:checked ~ .control-1,
+#carousel1-2:checked ~ .control-2,
+#carousel1-3:checked ~ .control-3 {
     display: block;
 }
 
-.carousel-indicators {
+.carousel1-indicators {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -43,19 +43,22 @@
     z-index: 10;
 }
 
-#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
-#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
-#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+#carousel-1:checked ~ .control-1 ~ .carousel1-indicators li:nth-child(1) .carousel1-bullet,
+#carousel-2:checked ~ .control-2 ~ .carousel1-indicators li:nth-child(2) .carousel1-bullet,
+#carousel-3:checked ~ .control-3 ~ .carousel1-indicators li:nth-child(3) .carousel1-bullet {
     color: #000;
     /*Set to match the Tailwind colour you want the active one to be */
 }
 
 .nav-right{
-    max-width: 100px;
+    width: 80px;
     justify-content: flex-end;
 }
 
 .nav-left{
-    max-width: 100px;
-    justify-content: flex-start;
+    width: 80px!important;
+    /* justify-content: flex-start; */
 }
+.highlighted-text {
+    background: linear-gradient(180deg,rgba(255,255,255,0) 50%, #5b148c 50%);
+  }

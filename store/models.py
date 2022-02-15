@@ -21,9 +21,17 @@ class ShopPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        
-
-        context['products'] = Product.objects.live()
+        products = Product.objects.live()
+        for product in products:
+            # if product.image:
+            #     etsy_images = [request.get_host() + "/static/" + product.image]
+            # else:
+            etsy_images = []
+            if product.etsy_images:
+                product.etsy_images = product.etsy_images.replace("fullxfull", "200x200")
+                etsy_images += product.etsy_images.split("|")
+                product.etsy_imgs = etsy_images
+        context['products'] = products
 
         return context
 
@@ -39,9 +47,18 @@ class Product(Page):
                 fields.append(f)
 
         context['custom_fields'] = fields
+        if self.image:
+            etsy_images = [self.image]
+        else:
+            etsy_images = []
+        if self.etsy_images:
+            self.etsy_images = self.etsy_images.replace("fullxfull", "800x800")
+            etsy_images += self.etsy_images.split("|")
+        context['etsy_imgs'] = etsy_images
 
         return context
     sku = models.CharField(max_length=255)
+    quantity = models.IntegerField(blank=False, null=False)
     short_description = models.TextField(blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     featured = models.BooleanField(default=False)
@@ -52,13 +69,16 @@ class Product(Page):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    etsy_images = models.CharField(max_length=5000, blank=True, null=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('sku'),
         FieldPanel('price'),
+        FieldPanel('quantity'),
         ImageChooserPanel('image'),
         FieldPanel('featured'),
         FieldPanel('short_description'),
+        FieldPanel('etsy_images'),
         InlinePanel('custom_fields', label='Custom fields'),
     ]
 

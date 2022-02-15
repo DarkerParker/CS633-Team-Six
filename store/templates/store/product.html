@@ -2,12 +2,64 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-    <div class="min-h-screen flex justify-center items-center">
+    <div class="flex justify-center items-center">
         <div class="container flex justify-center h-full w-full">
-            <div class="max-w-lg py-4 px-16">
+            <div class="max-w-2xl pt-4 pb-16 px-16">
             <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                {% image page.image max-400x400 as temp_image %}
-                <img class="rounded-t-lg h-full w-full" src="{{ temp_image.url }}" alt="" />
+                <div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel">
+                    <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+                      {% for image in etsy_imgs %}
+                        <button
+                          type="button"
+                          data-bs-target="#carouselExampleIndicators"
+                          data-bs-slide-to="{{forloop.counter0}}"
+                          {% if forloop.first %}class="active"{% endif %}
+                          {% if forloop.first %}aria-current="true"{% endif %}
+                          aria-label="Slide {{forloop.counter}}"
+                        ></button>
+                      {% endfor %}
+                    </div>
+                    <div class="carousel-inner relative w-full overflow-hidden">
+                      {% for image in etsy_imgs %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %} float-left w-full">
+                          {% if 'https://i.etsystatic.com/' in image %}
+                            <img
+                              src="{{image}}"
+                              class="block w-full"
+                              alt="Wild Landscape"
+                            />
+                          {% else %}
+                          {% image image fill-800x800 as tmp_image %}
+                            <img
+                              src="{{tmp_image.url}}"
+                              class="block w-full"
+                              alt="Wild Landscape"
+                            />
+                          {% endif %}
+                          
+                        </div>
+                      {% endfor %}
+                    </div>
+                    <button
+                      class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide="prev"
+                    >
+                      <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                      class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide="next"
+                    >
+                      <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                
                 <div class="py-6 px-8 rounded-lg bg-white">
                 <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">{{ page.title }}</h1>
                 <p class="text-gray-700 tracking-wide">{{page.short_description}}</p>
@@ -29,17 +81,28 @@
                         {% endif %}
                     {% endfor %}
                 </p>
-                <button class="snipcart-add-item btn btn-primary mt-6 py-2 px-4 bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold rounded-full shadow-offset hover:shadow-lg transition duration-300"
-                data-item-name="{{ page.title }}"
-                    data-item-id="{{ page.sku }}"
-                    data-item-url="{{ page.get_full_url }}"
-                    data-item-price="{{ page.price }}"
-                    data-item-description="{{ page.short_description}}"
-                    data-item-image="{{ temp_image.url }}"
-                    {% for f in custom_fields %}
-                        data-item-custom{{forloop.counter}}-name="{{f.name}}"
-                        data-item-custom{{forloop.counter}}-options="{{f.options}}"
-                    {% endfor %}>Add to cart</button>
+                    <div style="text-align: right;padding-top: 20px;">
+                      <button
+                        class="snipcart-add-item px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
+                        data-item-name="{{ page.title }}"
+                        data-item-id="{{ page.sku }}"
+                        data-item-url="http://76.115.160.164:3000{{ page.url }}"
+                        data-item-price="{{ page.price }}"
+                        data-item-description="{{ page.short_description}}"
+                        {% if 'https://i.etsystatic.com/' in etsy_imgs.0 %}
+                          data-item-image="{{ etsy_imgs.0 }}"
+                        {% else %}
+                          {% image page.image fill-800x800 as tmp_image %}
+                          data-item-image="{{ tmp_image.url }}"
+                        {% endif %}
+                        
+                        {% for f in custom_fields %}
+                            data-item-custom{{forloop.counter}}-name="{{f.name}}"
+                            data-item-custom{{forloop.counter}}-options="{{f.options}}"
+                        {% endfor %}>
+                        Add to cart
+                      </button>
+                    </div>
                     
                 </div>
                 <div class="absolute top-2 right-2 py-2 px-4 bg-white rounded-lg">

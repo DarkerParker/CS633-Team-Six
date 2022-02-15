@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-searchresults{% endblock %}
+
+{% block title %}Upload Etsy Inventory{% endblock %}
+
+{% block content %}
+<section class="bg-white py-8">
+    <div
+    class="justify-center mx-auto" style="max-width: 1200px;">
+    <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+<p>Add Etsy listing CSV (found <a class="text-gray-800 underline hover:text-gray-900" href="https://www.etsy.com/your/shops/Soulspressions/EtsyListingsDownload.csv">here</a>, must be logged into Etsy) to auto-populate inventory</p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="file">
+    <button type="submit">Upload</button>
+  </form>
+  </div></div></section>
+{% endblock %}

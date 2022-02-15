@@ -16,11 +16,27 @@
     </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    
     {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static "icons/logo.ico" %}">
     <link rel="stylesheet" href="{% static "css/tailwind-output.css" %}">
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
 
     {% load static wagtailsettings_tags %}
     {% get_settings %}
@@ -31,7 +47,7 @@
 
     {% if settings.home.SnipcartSettings.api_key %}
     <script async src="https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.js"></script>
-    <div hidden id="snipcart" data-api-key="{{ settings.home.SnipcartSettings.api_key }}"></div>
+    <div hidden id="snipcart" data-api-key="{{ settings.home.SnipcartSettings.api_key }}" data-config-modal-style="side"></div>
     <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.2.1/default/snipcart.css" />
     {% endif %}
 </head>
@@ -43,7 +59,7 @@
     <nav id="header" class="w-full z-30 top-0 py-1">
       <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">
 
-          <label for="menu-toggle" class="cursor-pointer md:hidden block">
+          <label for="menu-toggle" class="cursor-pointer md:hidden block nav-left">
               <svg class="fill-current text-gray-900" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                   <title>menu</title>
                   <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
@@ -55,7 +71,6 @@
               <nav>
                   <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                       <li><a href="/shop" class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="#">Shop</a></li>
-                      <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="#">Join</a></li>
                       <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4" href="#">About</a></li>
                   </ul>
               </nav>
@@ -63,7 +78,7 @@
 
           <div class="order-1 md:order-2">
               <a href="/" class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#">
-                  SOULSPRESSIONS
+                  Soulspressions
               </a>
           </div>
 
@@ -90,28 +105,65 @@
 
     {# Global javascript #}
     <script type="text/javascript" src="{% static 'js/snipcartwagtaildemo.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
 
     {% block extra_js %}
     {# Override this in templates to add extra javascript #}
     {% endblock %}
 
-    <footer class="container mx-auto bg-white py-8 border-t border-gray-400">
-      <div class="container flex px-3 py-8 ">
+    <footer class="container mx-auto bg-white py-4 border-t border-gray-400">
+      <div class="container flex px-3 py-4 ">
           <div class="w-full mx-auto flex flex-wrap">
-              <div class="flex w-full lg:w-1/2 ">
+              <!-- <div class="flex w-full lg:w-1/2 ">
                   <div class="px-3 md:px-0">
                       <h3 class="font-bold text-gray-900">About</h3>
                       <p class="py-4">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
                       </p>
                   </div>
-              </div>
+              </div> -->
+              <div class="flex w-full lg:w-1/2" style="max-width:1000px;flex-direction: column;">
+                <!-- Begin Mailchimp Signup Form -->
+                <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7_dtp.css" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                    #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+                    /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+                    We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+                </style>
+                <div id="mc_embed_signup">
+                <form action="https://gmail.us14.list-manage.com/subscribe/post?u=96c36197c8f2dadab0084e4f9&amp;id=4886b8813a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                    <div id="mc_embed_signup_scroll">
+                    <h2>Sign up for our newsletter</h2>
+                <div class="mc-field-group">
+                    <label for="mce-EMAIL">Email Address
+                </label>
+                    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                </div>
+                    <div id="mce-responses" class="clear foot">
+                        <div class="response" id="mce-error-response" style="display:none"></div>
+                        <div class="response" id="mce-success-response" style="display:none"></div>
+                    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_96c36197c8f2dadab0084e4f9_4886b8813a" tabindex="-1" value=""></div>
+                        <div class="optionalParent">
+                            <div class="clear foot">
+                                <input type="submit" value="Sign up" name="subscribe" id="mc-embedded-subscribe" class="button">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                </div>
+                <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+                <!--End mc_embed_signup-->
+            </div>
               <div class="flex w-full lg:w-1/2 lg:justify-end lg:text-right">
                   <div class="px-3 md:px-0">
                       <h3 class="font-bold text-gray-900">Social</h3>
                       <ul class="list-reset items-center pt-3">
                           <li>
-                              <a class="inline-block no-underline hover:text-black hover:underline py-1" href="#">Add social links</a>
+                            <a class="inline-block no-underline hover:text-black hover:underline py-1" href="https://facebook.com/soulspressions">Facebook</a>
+                          </li>
+                          <li>
+                            <a class="inline-block no-underline hover:text-black hover:underline py-1" href="https://www.etsy.com/shop/Soulspressions">Etsy</a>
                           </li>
                       </ul>
                   </div>
