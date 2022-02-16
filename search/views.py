@@ -10,6 +10,9 @@ from store.models import ShopPage, Product
 import csv
 import io
 from django.utils.text import slugify
+import random
+
+
 
 @login_required(login_url='/django-admin')
 def upload_file(request):
@@ -31,6 +34,8 @@ def upload_file(request):
                     price = item['PRICE']
                     quantity = item['QUANTITY']
                     sku = item['SKU']
+                    if sku == "":
+                        sku = str(random.randint(1, 9999999))
                     etsy_images = ""
                     for key in item:
                         if 'IMAGE' in key:
