@@ -26,7 +26,7 @@ def upload_file(request):
 
             # Generate a list comprehension
             data = [line for line in reader]
-            store_page = ShopPage.objects.all()[0]
+            store_page = ShopPage.objects.all().live()[0]
             for item in data:
                 try:
                     title = item['TITLE']
