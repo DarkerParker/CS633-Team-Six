@@ -70,7 +70,7 @@
         {% if search_results %}
 
             {% for result in search_results %}
-                <div class="mx-auto md:w-1/2 xl:w-1/3 p-6 flex flex-col">
+                <div class="mx-auto md:w-1/2 xl:w-1/3 p-6 flex flex-col" style="max-width: 100%;">
                     <a href="{{ result.get_url }}">
             
                         {% if 'https://i.etsystatic.com/' in result.etsy_imgs.0 %}
