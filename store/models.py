@@ -49,7 +49,7 @@ class Product(Page):
         else:
             etsy_images = []
         if self.etsy_images:
-            self.etsy_images = self.etsy_images.replace("fullxfull", "800x800")
+            self.etsy_images = self.etsy_images
             etsy_images += self.etsy_images.split("|")
         context['etsy_imgs'] = etsy_images
 

@@ -4,9 +4,9 @@
 {% block content %}
     <div class="flex justify-center items-center">
         <div class="container flex justify-center h-full w-full">
-            <div class="max-w-2xl pt-4 pb-16 px-16">
+            <div class="pt-4 pb-16 px-4" style="max-width: 1000px;">
             <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                <div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel">
+                <div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel" style="height: 500px;">
                     <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
                       {% for image in etsy_imgs %}
                         <button
@@ -19,22 +19,23 @@
                         ></button>
                       {% endfor %}
                     </div>
-                    <div class="carousel-inner relative w-full overflow-hidden">
+                    <div class="carousel-inner relative w-full overflow-hidden" style="height: 500px;">
                       {% for image in etsy_imgs %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %} float-left w-full">
-                          {% if 'https://i.etsystatic.com/' in image %}
-                            <img
-                              src="{{image}}"
-                              class="block w-full"
-                            />
-                          {% else %}
-                          {% image image fill-800x800 as tmp_image %}
-                            <img
-                              src="{{tmp_image.url}}"
-                              class="block w-full"
-                            />
-                          {% endif %}
-                          
+                        <div class="carousel-item {% if forloop.first %}active{% endif %} float-left w-full" style="height: 500px;">
+                          <div style="width: 100%;height: 100%;display: flex;">
+                            {% if 'https://i.etsystatic.com/' in image %}
+                              <img
+                                src="{{image}}"
+                                class="block w-full" style="width:auto;max-height:100%;margin: auto;"
+                              />
+                            {% else %}
+                            {% image image fill-800x800 as tmp_image %}
+                              <img
+                                src="{{tmp_image.url}}"
+                                class="block w-full"  style="width:auto;max-height:100%;margin: auto;"
+                              />
+                            {% endif %}
+                          </div>
                         </div>
                       {% endfor %}
                     </div>
