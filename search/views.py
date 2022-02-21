@@ -6,7 +6,7 @@ from wagtail.search.models import Query
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import UploadFileForm
-from store.models import ShopPage, Product
+from store.models import ShopPage, Product, ProductCustomField
 import csv
 import io
 from django.utils.text import slugify
@@ -48,6 +48,9 @@ def upload_file(request):
                     product = Product(title=title, short_description=description, sku=sku, price=price, quantity=quantity, etsy_images=etsy_images, slug=slugify(title))
                     store_page.add_child(instance=product)
                     store_page.save()
+                    if item['VARIATION 1 NAME'] != "":
+                        options = ProductCustomField(product=product, options=item['VARIATION 1 VALUES'].replace(",","|"), name=item['VARIATION 1 NAME'])
+                        options.save()
                 except Exception as e:
                     print(e)
                     pass
